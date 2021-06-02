@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header">Lures:</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table" *ngIf="lures && lures.length">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Color</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lure of lures">
+            <td>
+              <a [href]="lure.productUrl"
+                ><img
+                  class="img-responsive center-block"
+                  [src]="lure.imageUrl"
+                  [title]="lure.name"
+                  [style.width.px]="75"
+                  [style.height.px]="60"
+                  [style.margin.px]="2"
+                />
+              </a>
+            </td>
+            <td>{{ lure.name }}</td>
+            <td>{{ lure.colorWay }}</td>
+            <td>{{ lure.price | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
