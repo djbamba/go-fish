@@ -10,12 +10,11 @@ import { NavComponent } from './components/shared/nav/nav.component';
 import { LureComponent } from './lures/lure.component';
 import { AddLureComponent } from './lures/add-lure/add-lure.component';
 import { FormsModule } from '@angular/forms';
-import { ModalComponent } from './components/shared/modal/modal.component';
 import { EditLureComponent } from './lures/edit-lure/edit-lure.component';
 import { DeleteLureComponent } from './lures/delete-lure/delete-lure.component';
 
 @NgModule({
-  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, ModalComponent, EditLureComponent, DeleteLureComponent],
+  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [LureService, Title],
   bootstrap: [AppComponent],
