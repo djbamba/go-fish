@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { LureService } from 'src/app/services/lure.service';
 import { Lure } from '../lure';
 
@@ -8,6 +9,7 @@ import { Lure } from '../lure';
   styleUrls: ['./add-lure.component.css'],
 })
 export class AddLureComponent implements OnInit {
+  @Input()
   lure: Lure = new Lure();
   submitted: boolean = false;
 
@@ -15,12 +17,41 @@ export class AddLureComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public addLure(): void {
-    console.log('addLure() clicked');
+  existingLure(): boolean {
+    return !!this.lure.id;
   }
 
-  public submitLure(): void {
-    this.submitted = true;
-    console.log('submitLure() called');
+  public submitLure(): Lure {
+    return this.existingLure() ? this.updateLure() : this.addLure();
+  }
+
+  public resetForm(lureForm : NgForm):void {
+    this.submitted = false;
+    this.lure = new Lure();
+    lureForm.reset();
+  }
+
+  private addLure(): Lure {
+    this.lureService.addLure(this.lure).subscribe(
+      (res) => {
+        this.lure = res;
+        this.submitted = true;
+      },
+      (err) => console.error(err)
+    );
+
+    return this.lure;
+  }
+
+  private updateLure(): Lure {
+    this.lureService.updateLure(this.lure).subscribe(
+      (res) => {
+        this.lure = res;
+        this.submitted = true;
+      },
+      (err) => console.error(err)
+    );
+
+    return this.lure;
   }
 }

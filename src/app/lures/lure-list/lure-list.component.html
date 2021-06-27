@@ -1,38 +1,64 @@
 <div class="card">
-  <div class="card-header">Lures:</div>
+  <div class="card-header">Lures: <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#addLureModal">Add</button></div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table" *ngIf="lures && lures.length">
         <thead>
           <tr>
-            <th>
-              <button type="button" class="btn btn-primary" routerLink='/lures/add'>Add</button>         
-            </th>
+            <th></th>
             <th>Name</th>
             <th>Color</th>
             <th>Price</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let lure of lures">
+          <tr *ngFor="let lure of lures; index as i">
             <td>
-              <a [href]="lure.productUrl"
-                ><img
-                  class="img-responsive center-block"
-                  [src]="lure.imageUrl"
-                  [title]="lure.name"
-                  [style.width.px]="75"
-                  [style.height.px]="60"
-                  [style.margin.px]="2"
-                />
+              <a [href]="lure.productUrl">
+                <img class="img-responsive center-block lure-img" [src]="lure.imageUrl" [title]="lure.name" />
               </a>
             </td>
-            <td>{{ lure.name }}</td>
-            <td>{{ lure.colorWay }}</td>
-            <td>{{ lure.price | currency }}</td>
+            <td>{{lure.name}}</td>
+            <td>{{lure.colorWay}}</td>
+            <td>{{lure.price | currency}}</td>
+            <td>
+              <div class="btn-group-vertical">
+                <button type="button" class="btn btn-secondary col-12" data-toggle="modal"
+                        attr.data-target="#editLureModal-{{i}}">Edit</button>
+                <div class="modal fade" id="editLureModal-{{i}}" tabindex="-1" role="dialog"
+                     aria-labelledby="modelTitleId" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <app-edit-lure [lure]="lure"></app-edit-lure>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-danger col-12" data-toggle="modal"
+                        attr.data-target="#deleteLureModal-{{i}}">Delete</button>
+                <div class="modal fade" id="deleteLureModal-{{i}}" tabindex="-1" role="dialog"
+                     aria-labelledby="modelTitleId" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <app-delete-lure [lure]="lure"></app-delete-lure>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addLureModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <app-add-lure></app-add-lure>
     </div>
   </div>
 </div>
