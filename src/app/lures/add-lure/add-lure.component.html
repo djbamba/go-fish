@@ -1,80 +1,66 @@
-
-    <div class="card">
-        <div class="card-header text-center">
-            <h1>Add Lure</h1>
-        </div>
-        <form #lureForm="ngForm" (ngSubmit)="submitLure()">
-            <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label for="name" class="form-label">Lure Name:</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" name="name" id="name" [(ngModel)]="lure.name"
-                               placeholder="Googan Baits Krackin' Craws" required />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label for="colorWay" class="form-label">Colorway:</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="text" name="colorWay" id="colorWay" class="form-control" placeholder="Sexy Shad"
-                               [(ngModel)]='lure.colorWay' required />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label for="productUrl" class='form-label'>Link:</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="text" name="productUrl" id="productUrl" class="form-control"
-                               placeholder="https://basspro.com/product-name" aria-describedby="productUrl"
-                               [(ngModel)]='lure.productUrl' required>
-                        <small class="form-text text-muted text-center">URL used for quick-access to host site</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label for="imageUrl" class='form-label'>Thumbnail URL:</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="text" name="imageUrl" id="imageUrl" class="form-control"
-                               placeholder="https://basspro.scene7.com/is/image.jpg"
-                               aria-describedby="imageUrl" [(ngModel)]='lure.imageUrl' required>
-                        <small class="form-text text-muted text-center">URL for lure thumbnails</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label for="price" class='form-label'>Price:</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" name="price" id="price" class="form-control" placeholder="$5.55"
-                               aria-describedby="price" [(ngModel)]='lure.price' required>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="form-group row">
-                    <div *ngIf="!existingLure()" class="col-{{existingLure() ? '4 offset-4' : '12'}} text-center">
-                        <button type="submit" class="btn btn-primary" [disabled]="!lureForm.form.valid">Submit</button>
-                        <button type="button" class="btn btn-primary" (click)='resetForm(lureForm)'
-                                *ngIf='existingLure()'>New Lure</button>
-                    </div>
-                    <div *ngIf="existingLure()" class="col-4 offset-4 text-center">
-                        <div class="row">
-                            <div class='col-6'>
-                                <button type="submit" class="btn btn-primary"
-                                        [disabled]="!lureForm.form.valid" data-dismiss="modal">Submit</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-secondary" (click)='resetForm(lureForm)'>New
-                                    Lure</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+<div class="card">
+    <div class="card-header text-center">
+        <h1>Add Lure</h1>
     </div>
+    <form #lureForm="ngForm">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="name" class="form-label">Lure Name:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="name" id="name" [(ngModel)]="lure.name"
+                           placeholder="Googan Baits Krackin' Craws" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="colorWay" class="form-label">Colorway:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="colorWay" id="colorWay" class="form-control" placeholder="Sexy Shad"
+                           [(ngModel)]='lure.colorWay' required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="productUrl" class='form-label'>Link:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="productUrl" id="productUrl" class="form-control"
+                           placeholder="https://basspro.com/product-name" aria-describedby="productUrl"
+                           [(ngModel)]='lure.productUrl' required>
+                    <small class="form-text text-muted text-center">URL used for quick-access to host site</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="imageUrl" class='form-label'>Thumbnail URL:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="imageUrl" id="imageUrl" class="form-control"
+                           placeholder="https://basspro.scene7.com/is/image.jpg" aria-describedby="imageUrl"
+                           [(ngModel)]='lure.imageUrl' required>
+                    <small class="form-text text-muted text-center">URL for lure thumbnails</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="price" class='form-label'>Price:</label>
+                </div>
+                <div class="col-4">
+                    <input type="text" name="price" id="price" class="form-control" placeholder="$5.55"
+                           aria-describedby="price" [(ngModel)]='lure.price' required>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group row">
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid"
+                            (click)="submitLure()" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

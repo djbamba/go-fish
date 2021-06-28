@@ -10,6 +10,8 @@ import { Lure } from '../lure';
 export class EditLureComponent implements OnInit {
   @Input()
   lure: Lure = new Lure();
+  @Output()
+  lureChange = new EventEmitter<Lure>();
 
   updated: boolean = false;
 
@@ -23,6 +25,7 @@ export class EditLureComponent implements OnInit {
       (res) => {
         this.lure = res;
         this.updated = true;
+        this.lureChange.emit(this.lure);
       },
       (err) => {
         this.updated = false;

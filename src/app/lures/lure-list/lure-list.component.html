@@ -31,7 +31,7 @@
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-edit-lure [lure]="lure"></app-edit-lure>
+                      <app-edit-lure [(lure)]="lures[i]"></app-edit-lure>
                     </div>
                   </div>
                 </div>
@@ -41,13 +41,12 @@
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-delete-lure [lure]="lure"></app-delete-lure>
+                      <app-delete-lure [lure]="lures[i]" (lureChange)="updateList()"></app-delete-lure>
                     </div>
                   </div>
                 </div>
               </div>
             </td>
-
           </tr>
         </tbody>
       </table>

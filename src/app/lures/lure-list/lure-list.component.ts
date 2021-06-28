@@ -17,4 +17,13 @@ export class LureListComponent implements OnInit {
       this.lures = data;
     });
   }
+
+  public updateList() {
+    this.lureService.getAll().subscribe(
+      (res) => {
+        this.lures = res;
+      },
+      (err) => console.error(err)
+    );
+  }
 }

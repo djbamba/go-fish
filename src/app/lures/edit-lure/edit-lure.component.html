@@ -3,7 +3,7 @@
         <h1>Edit Lure</h1>
     </div>
 
-    <form #lureForm="ngForm" (ngSubmit)="updateLure()">
+    <form #lureForm="ngForm">
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-3">
@@ -57,7 +57,7 @@
         <div class="card-footer">
             <div class="form-group row">
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-primary" [disabled]="!lureForm.form.valid" data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid" (click)="updateLure()" data-dismiss="modal">Update</button>
                 </div>
             </div>
         </div>
