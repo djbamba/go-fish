@@ -1,0 +1,65 @@
+<div class = "card">
+    <div class="card-header text-center">
+        <h1>Edit Lure</h1>
+    </div>
+
+    <form #lureForm="ngForm">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="name" class="form-label">Lure Name:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="name" id="name" [(ngModel)]="lure.name"
+                           value="{{lure.name}}" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="colorWay" class="form-label">Colorway:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="colorWay" id="colorWay" class="form-control" value="{{lure.colorWay}}"
+                           [(ngModel)]='lure.colorWay' required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="productUrl" class='form-label'>Link:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="productUrl" id="productUrl" class="form-control"
+                           value="{{lure.productUrl}}" aria-describedby="productUrl" [(ngModel)]='lure.productUrl'
+                           required>
+                    <small class="form-text text-muted text-center">URL used for quick-access to host site</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="imageUrl" class='form-label'>Thumbnail URL:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="imageUrl" id="imageUrl" class="form-control" value="{{lure.imageUrl}}"
+                           aria-describedby="imageUrl" [(ngModel)]='lure.imageUrl' required>
+                    <small class="form-text text-muted text-center">URL for lure thumbnails</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="price" class='form-label'>Price:</label>
+                </div>
+                <div class="col-4">
+                    <input type="number" name="price" id="price" class="form-control" value="{{lure.price | currency}}"
+                           aria-describedby="price" [(ngModel)]='lure.price' required>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group row">
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid" (click)="updateLure()" data-dismiss="modal">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
