@@ -15,18 +15,18 @@ export class LureService {
   constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Lure[]> {
-    return this.http.get<Lure[]>(`${this.baseUrl}/all`, httpOptions);
+    return this.http.get<Lure[]>(`${this.baseUrl}`, httpOptions);
   }
 
   public addLure(lure: Lure): Observable<Lure> {
-    return this.http.post<Lure>(`${this.baseUrl}/add`, lure);
+    return this.http.post<Lure>(`${this.baseUrl}`, lure);
   }
 
   public updateLure(lure: Lure): Observable<Lure> {
-    return this.http.put<Lure>(`${this.baseUrl}/update`, lure);
+    return this.http.put<Lure>(`${this.baseUrl}`, lure);
   }
 
   public deleteLure(lureID: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${lureID}`);
+    return this.http.delete(`${this.baseUrl}/${lureID}`);
   }
 }
