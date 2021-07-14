@@ -11,7 +11,7 @@ export class DeleteLureComponent implements OnInit {
   @Input()
   lure = new Lure();
   @Output()
-  lureChange = new EventEmitter<void>();
+  lureChange = new EventEmitter<string>();
 
   constructor(private lureService: LureService) {}
 
@@ -21,7 +21,7 @@ export class DeleteLureComponent implements OnInit {
     this.lureService.deleteLure(this.lure.id).subscribe(
       (res) => {
         console.log(res);
-        this.lureChange.emit();
+        this.lureChange.emit(this.lure.id);
       },
       (err) => {
         console.error(err)

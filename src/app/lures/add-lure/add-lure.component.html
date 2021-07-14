@@ -49,8 +49,8 @@
                     <label for="price" class='form-label'>Price:</label>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="price" id="price" class="form-control" placeholder="$5.55"
-                           aria-describedby="price" [(ngModel)]='lure.price' required>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="$5.55"
+                           aria-describedby="price" [(ngModel)]='lure.price' [value] = 'lure.price' required>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
             <div class="form-group row">
                 <div class="col-12 text-center">
                     <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid"
-                            (click)="submitLure()" data-dismiss="modal">Submit</button>
+                            (click)="addLure(lureForm)" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>

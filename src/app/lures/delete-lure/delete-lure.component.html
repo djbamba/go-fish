@@ -1,4 +1,4 @@
-<div class = "card">
+<div class="card">
     <div class="card-header text-center">
         <h1>Delete Lure</h1>
     </div>
@@ -9,7 +9,7 @@
                     <label class="form-label">Lure Name:</label>
                 </div>
                 <div class="col-9">
-                           {{lure.name}}
+                    {{lure.name}}
                 </div>
             </div>
             <div class="form-group row">
@@ -41,14 +41,15 @@
                     <label class='form-label'>Price:</label>
                 </div>
                 <div class="col-4">
-                    {{lure.price}}
+                    {{lure.price | currency}}
                 </div>
             </div>
         </div>
         <div class="card-footer">
             <div class="form-group row">
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-primary" (click)='deleteLure()' data-dismiss="modal">Delete</button>
+                    <button type="button" class="btn btn-danger" (click)='deleteLure()'
+                            data-dismiss="modal">Delete</button>
                 </div>
             </div>
         </div>
