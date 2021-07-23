@@ -1,37 +1,34 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
-import { LureService } from 'src/app/services/lure.service';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Lure } from '../lure';
 
 @Component({
   selector: 'app-edit-lure',
   templateUrl: './edit-lure.component.html',
-  styleUrls: ['./edit-lure.component.css']
+  styleUrls: ['./edit-lure.component.css'],
 })
 export class EditLureComponent implements OnInit {
   @Input()
-  lure: Lure = new Lure();
+  currLure!: Lure;
+  private _updateLure!: Lure;
   @Output()
-  lureChange = new EventEmitter<Lure>();
+  editLureReq = new EventEmitter<Lure>();
+  @ViewChild(NgForm)
+  private _lureForm!: NgForm;
 
-  updated: boolean = false;
+  ngOnInit(): void {}
 
-  constructor(private lureService: LureService) { }
-
-  ngOnInit(): void {
+  public updateLureReq(): void {
+    console.debug('EditLureComponent.updateLureReq: %o', this._lureForm.value);
+    this._updateLure = <Lure>this._lureForm.value;
+    this._updateLure.id = this.currLure.id;
+    this.editLureReq.emit(this._updateLure);
   }
-
-  public updateLure(): void {
-    this.lureService.updateLure(this.lure).subscribe(
-      (res) => {
-        this.lure = res;
-        this.updated = true;
-        this.lureChange.emit(this.lure);
-      },
-      (err) => {
-        this.updated = false;
-        console.error(err);
-      }
-    );
-  }
-
 }

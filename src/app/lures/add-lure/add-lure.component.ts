@@ -11,27 +11,15 @@ import { Lure } from '../lure';
 })
 export class AddLureComponent implements OnInit {
   @Input()
-  lure: Lure = new Lure();
+  lure: Lure = new Lure()
   @Output()
-  lureChange = new EventEmitter<void>();
-  submitted: boolean = false;
+  addLureReq = new EventEmitter<NgForm>()
 
   constructor(private lureService: LureService, private router:Router) {}
 
   ngOnInit(): void {}
 
-  public addLure(lureForm : NgForm): void {
-    this.lureService.addLure(lureForm.value).subscribe(
-      (res) => {
-        this.lure = res;
-        this.submitted = true;
-        this.lureChange.emit();
-        lureForm.reset();
-      },
-      (err) => {
-        this.submitted = false;
-        console.error(err);
-      }
-    );
+  public addALure(lureForm : NgForm): void {
+    this.addLureReq.emit(lureForm)
   }
 }

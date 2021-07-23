@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let lure of lures; index as i;">
+          <tr *ngFor="let lure of lures; index as i; trackBy: track">
             <td>
               <a [href]="lure.productUrl">
                 <img class="img-responsive center-block lure-img" [src]="lure.imageUrl" [title]="lure.name" />
@@ -31,7 +31,7 @@
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-edit-lure [(lure)]="lures[i]"></app-edit-lure>
+                      <app-edit-lure [currLure]="lures[i]" (editLureReq)="updateLure($event)"></app-edit-lure>
                     </div>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-delete-lure [lure]="lures[i]" (lureChange)="removeLure($event)"></app-delete-lure>
+                      <app-delete-lure [lure]="lures[i]" (deleteLureReq)="removeLure($event)"></app-delete-lure>
                     </div>
                   </div>
                 </div>
@@ -57,7 +57,7 @@
 <div class="modal fade" id="addLureModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <app-add-lure (lureChange)='getLures()'></app-add-lure>
+      <app-add-lure (addLureReq)='addLure($event)'></app-add-lure>
     </div>
   </div>
 </div>
