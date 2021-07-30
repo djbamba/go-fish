@@ -1,8 +1,10 @@
-<div class = "card">
+<div class="card">
     <div class="card-header text-center">
-        <h1>Edit Lure</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close-o" aria-hidden="true"></i>
+        </button>
+        <h5>Edit Lure</h5>
     </div>
-
     <form #lureForm="ngForm">
         <div class="card-body">
             <div class="form-group row">
@@ -10,8 +12,7 @@
                     <label for="name" class="form-label">Lure Name:</label>
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" name="name" id="name" [ngModel]="currLure.name"
-                    required />
+                    <input type="text" class="form-control" name="name" id="name" [ngModel]="currLure.name" required />
                 </div>
             </div>
             <div class="form-group row">
@@ -19,8 +20,8 @@
                     <label for="colorWay" class="form-label">Colorway:</label>
                 </div>
                 <div class="col-9">
-                    <input type="text" name="colorWay" id="colorWay" class="form-control"
-                           [ngModel]='currLure.colorWay' required />
+                    <input type="text" name="colorWay" id="colorWay" class="form-control" [ngModel]='currLure.colorWay'
+                           required />
                 </div>
             </div>
             <div class="form-group row">
@@ -29,8 +30,7 @@
                 </div>
                 <div class="col-9">
                     <input type="text" name="productUrl" id="productUrl" class="form-control"
-                            aria-describedby="productUrl" [ngModel]='currLure.productUrl'
-                           required>
+                           aria-describedby="productUrl" [ngModel]='currLure.productUrl' required>
                     <small class="form-text text-muted text-center">URL used for quick-access to host site</small>
                 </div>
             </div>
@@ -39,8 +39,8 @@
                     <label for="imageUrl" class='form-label'>Thumbnail URL:</label>
                 </div>
                 <div class="col-9">
-                    <input type="text" name="imageUrl" id="imageUrl" class="form-control"
-                           aria-describedby="imageUrl" [ngModel]='currLure.imageUrl' required>
+                    <input type="text" name="imageUrl" id="imageUrl" class="form-control" aria-describedby="imageUrl"
+                           [ngModel]='currLure.imageUrl' required>
                     <small class="form-text text-muted text-center">URL for lure thumbnails</small>
                 </div>
             </div>
@@ -49,15 +49,16 @@
                     <label for="price" class='form-label'>Price:</label>
                 </div>
                 <div class="col-4">
-                    <input type="number" name="price" id="price" class="form-control"
-                           aria-describedby="price" [ngModel]='currLure.price' required>
+                    <input type="number" name="price" id="price" class="form-control" aria-describedby="price"
+                           [ngModel]='currLure.price' required>
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <div class="form-group row">
+        <div class="card-footer row">
+            <div class="form-group">
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid" (click)="updateLureReq()"  data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid"
+                            (click)="updateLureReq()" data-dismiss="modal">Update</button>
                 </div>
             </div>
         </div>
