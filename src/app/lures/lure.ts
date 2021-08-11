@@ -1,8 +1,4 @@
-enum LureType {
-    SOFT_BAIT = 'Soft Bait',
-    HARD_BAIT = 'Hard Bait',
-    SPINNER_BUZZ_BAIT = 'Spinner/Buzz Bait'
-}
+import { LureType } from './lure-type';
 
 export class Lure {
     id!: string;
@@ -12,5 +8,8 @@ export class Lure {
     productUrl!: string;
     price!: number;
     type!: string;
-    lureTypes = LureType;
+
+    public lureTypes () : LureType[] {
+        return Object.values(LureType);
+    }
 }

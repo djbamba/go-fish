@@ -60,7 +60,7 @@
                 <div class="col-9">
                     <select class="form-control" id="lureType" name="type" [(ngModel)]="lure.type" required>
                         <option selected disabled>Select type...</option>
-                        <option *ngFor="let type of lure.lureTypes | keyvalue" [value]="type.key">{{type.value}}</option>
+                        <option *ngFor="let type of lure.lureTypes()| keyvalue" [value]="type.key">{{type.value}}</option>
                       </select>
                 </div>
             </div>
