@@ -9,7 +9,7 @@ export class Lure {
     price!: number;
     type!: string;
 
-    public lureTypes () : LureType[] {
+    public static lureTypes () : LureType[] {
         return Object.values(LureType);
     }
 }
