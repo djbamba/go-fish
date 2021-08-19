@@ -9,6 +9,9 @@ import { Lure } from '../lure';
 import { LureService } from '../../services/lure.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
+import { ModalInfo } from 'src/app/components/shared/modal/modal-info';
+import { AddLureComponent } from '../add-lure/add-lure.component';
 
 @Component({
   selector: 'app-lure-list',
@@ -18,11 +21,12 @@ import { NgForm } from '@angular/forms';
 export class LureListComponent implements OnInit, OnDestroy {
   lures!: Lure[];
   private lureSub!: Subscription;
+  modalInfo! :ModalInfo;
 
   @Output()
   lureAction = new EventEmitter<Lure>();
 
-  constructor(private lureService: LureService) {}
+  constructor(private lureService: LureService, private _modalComp : ModalComponent) {}
 
   ngOnInit(): void {
     this.getLures();
@@ -32,8 +36,13 @@ export class LureListComponent implements OnInit, OnDestroy {
     this.lureSub.unsubscribe();
   }
 
-  public addLure(lureForm: NgForm): void {
-    console.debug('LureList.addLure: %s',JSON.stringify(lureForm.value));
+  public invokeAddLureModal(): void {
+    this._modalComp.open(AddLureComponent)
+    this._modalComp.modalRef.componentInstance.addLureReq.subscribe((lureForm: NgForm) => this._addLure(lureForm))
+  }
+
+  private _addLure(lureForm: NgForm): void {
+    console.debug('LureList.addLure: %s', JSON.stringify(lureForm.value));
     this.lureService.addLure(<Lure>lureForm.value).subscribe(
       (res) => {
         console.log(res);
@@ -50,8 +59,8 @@ export class LureListComponent implements OnInit, OnDestroy {
   public updateLure(lure: Lure): void {
     this.lureService.updateLure(lure).subscribe(
       (res) => {
-        let idx = this.lures.findIndex(x => x.id === lure.id)
-        this.lures[idx] = res
+        let idx = this.lures.findIndex((x) => x.id === lure.id);
+        this.lures[idx] = res;
       },
       (err) => {
         console.error(err);
@@ -62,7 +71,7 @@ export class LureListComponent implements OnInit, OnDestroy {
   public removeLure(lureID: string): void {
     this.lureService.deleteLure(lureID).subscribe(
       (res) => {
-        console.debug('LureList.removeLure: %o',res);
+        console.debug('LureList.removeLure: %o', res);
         this.lures = this.lures.filter((l) => l.id !== lureID);
       },
       (err) => {
