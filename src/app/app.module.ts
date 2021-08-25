@@ -12,11 +12,13 @@ import { AddLureComponent } from './lures/add-lure/add-lure.component';
 import { FormsModule } from '@angular/forms';
 import { EditLureComponent } from './lures/edit-lure/edit-lure.component';
 import { DeleteLureComponent } from './lures/delete-lure/delete-lure.component';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from './components/shared/modal/modal.component';
 
 @NgModule({
-  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [LureService, Title],
+  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent, ModalComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule],
+  providers: [LureService, Title, ModalComponent, NgbActiveModal],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

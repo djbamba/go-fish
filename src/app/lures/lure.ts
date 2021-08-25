@@ -1,3 +1,5 @@
+import { LureType } from './lure-type';
+
 export class Lure {
     id!: string;
     name!: string;
@@ -5,6 +7,9 @@ export class Lure {
     imageUrl!: string;
     productUrl!: string;
     price!: number;
-    lureType!: string;
+    type!: string;
 
+    public static lureTypes () : LureType[] {
+        return Object.values(LureType);
+    }
 }

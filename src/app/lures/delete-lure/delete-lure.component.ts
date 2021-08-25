@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LureService } from 'src/app/services/lure.service';
 import { Lure } from '../lure';
 
 @Component({
@@ -11,21 +10,11 @@ export class DeleteLureComponent implements OnInit {
   @Input()
   lure = new Lure();
   @Output()
-  lureChange = new EventEmitter<string>();
-
-  constructor(private lureService: LureService) {}
+  deleteLureReq = new EventEmitter<string>();
 
   ngOnInit(): void {}
 
   deleteLure(): void {
-    this.lureService.deleteLure(this.lure.id).subscribe(
-      (res) => {
-        console.log(res);
-        this.lureChange.emit(this.lure.id);
-      },
-      (err) => {
-        console.error(err)
-      }
-    );
+    this.deleteLureReq.emit(this.lure.id);
   }
 }

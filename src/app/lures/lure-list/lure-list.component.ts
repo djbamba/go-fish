@@ -1,7 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Lure } from '../lure';
 import { LureService } from '../../services/lure.service';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
+import { ModalInfo } from 'src/app/components/shared/modal/modal-info';
+import { AddLureComponent } from '../add-lure/add-lure.component';
 
 @Component({
   selector: 'app-lure-list',
@@ -11,8 +21,12 @@ import { Subscription } from 'rxjs';
 export class LureListComponent implements OnInit, OnDestroy {
   lures!: Lure[];
   private lureSub!: Subscription;
+  modalInfo! :ModalInfo;
 
-  constructor(private lureService: LureService) {}
+  @Output()
+  lureAction = new EventEmitter<Lure>();
+
+  constructor(private lureService: LureService, private _modalComp : ModalComponent) {}
 
   ngOnInit(): void {
     this.getLures();
@@ -22,8 +36,48 @@ export class LureListComponent implements OnInit, OnDestroy {
     this.lureSub.unsubscribe();
   }
 
+  public invokeAddLureModal(): void {
+    this._modalComp.open(AddLureComponent)
+    this._modalComp.modalRef.componentInstance.addLureReq.subscribe((lureForm: NgForm) => this._addLure(lureForm))
+  }
+
+  private _addLure(lureForm: NgForm): void {
+    console.debug('LureList.addLure: %s', JSON.stringify(lureForm.value));
+    this.lureService.addLure(<Lure>lureForm.value).subscribe(
+      (res) => {
+        console.log(res);
+        this.lureAction.emit(res);
+        this.lures.push(res);
+        lureForm.reset();
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  public updateLure(lure: Lure): void {
+    this.lureService.updateLure(lure).subscribe(
+      (res) => {
+        let idx = this.lures.findIndex((x) => x.id === lure.id);
+        this.lures[idx] = res;
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
   public removeLure(lureID: string): void {
-    this.lures = this.lures.filter((l) => l.id !== lureID);
+    this.lureService.deleteLure(lureID).subscribe(
+      (res) => {
+        console.debug('LureList.removeLure: %o', res);
+        this.lures = this.lures.filter((l) => l.id !== lureID);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 
   public getLures(): void {
@@ -33,5 +87,9 @@ export class LureListComponent implements OnInit, OnDestroy {
       },
       (err) => console.error(err)
     );
+  }
+
+  track(index: any, lure: any) {
+    return lure ? lure.id : undefined;
   }
 }

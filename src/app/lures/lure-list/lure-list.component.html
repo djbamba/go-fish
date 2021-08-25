@@ -1,6 +1,7 @@
 <div class="card">
-  <div class="card-header">Lures: <button type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#addLureModal">Add</button></div>
+   <div class="card-header">Lures:
+            <button type="button" class="btn btn-primary" (click)="invokeAddLureModal()">Add</button>
+  </div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table" *ngIf="lures && lures.length">
@@ -14,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let lure of lures; index as i;">
+          <tr *ngFor="let lure of lures; index as i; trackBy: track">
             <td>
               <a [href]="lure.productUrl">
                 <img class="img-responsive center-block lure-img" [src]="lure.imageUrl" [title]="lure.name" />
@@ -26,22 +27,22 @@
             <td>
               <div class="btn-group-vertical">
                 <button type="button" class="btn btn-secondary col-12" data-toggle="modal"
-                        attr.data-target="#editLureModal-{{i}}">Edit</button>
+                        attr.data-target="#editLureModal-{{i}}"><i class="fa fa-edit"></i></button>
                 <div class="modal fade" id="editLureModal-{{i}}" tabindex="-1" role="dialog"
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-edit-lure [(lure)]="lures[i]"></app-edit-lure>
+                      <app-edit-lure [currLure]="lures[i]" (editLureReq)="updateLure($event)"></app-edit-lure>
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-danger col-12" data-toggle="modal"
-                        attr.data-target="#deleteLureModal-{{i}}">Delete</button>
+                <button type="button" class="btn btn-danger col-12 rounded-bottom" data-toggle="modal"
+                        attr.data-target="#deleteLureModal-{{i}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 <div class="modal fade" id="deleteLureModal-{{i}}" tabindex="-1" role="dialog"
                      aria-labelledby="modelTitleId" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <app-delete-lure [lure]="lures[i]" (lureChange)="removeLure($event)"></app-delete-lure>
+                      <app-delete-lure [lure]="lures[i]" (deleteLureReq)="removeLure($event)"></app-delete-lure>
                     </div>
                   </div>
                 </div>
@@ -50,14 +51,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="addLureModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <app-add-lure (lureChange)='getLures()'></app-add-lure>
     </div>
   </div>
 </div>

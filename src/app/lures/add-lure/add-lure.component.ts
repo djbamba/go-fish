@@ -1,8 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LureService } from 'src/app/services/lure.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalInfo } from 'src/app/components/shared/modal/modal-info';
+import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
 import { Lure } from '../lure';
+import { LureType } from '../lure-type';
 
 @Component({
   selector: 'app-add-lure',
@@ -10,28 +18,39 @@ import { Lure } from '../lure';
   styleUrls: ['./add-lure.component.css'],
 })
 export class AddLureComponent implements OnInit {
-  @Input()
-  lure: Lure = new Lure();
   @Output()
-  lureChange = new EventEmitter<void>();
-  submitted: boolean = false;
+  addLureReq = new EventEmitter<NgForm>();
+  @ViewChild('lureForm')
+  private _lureForm!: NgForm;
 
-  constructor(private lureService: LureService, private router:Router) {}
+  get lureTypes() : LureType[] {
+    return Lure.lureTypes();
+  }
 
-  ngOnInit(): void {}
+  constructor(private _activeModal : NgbActiveModal, private _modalComp : ModalComponent){}
+  
+  ngOnInit(): void {
+    this.initModalInfo()
+  }
 
-  public addLure(lureForm : NgForm): void {
-    this.lureService.addLure(lureForm.value).subscribe(
-      (res) => {
-        this.lure = res;
-        this.submitted = true;
-        this.lureChange.emit();
-        lureForm.reset();
-      },
-      (err) => {
-        this.submitted = false;
-        console.error(err);
-      }
-    );
+  public addALure(): void {
+    this.addLureReq.emit(this._lureForm);
+    this._activeModal.close('Submitted');
+  }
+
+  private _handleResult(res : any): void {
+    console.debug('handle result %s', JSON.stringify(res))
+  }
+
+  private _handleReason(reason : any): void {
+    console.debug('handle reason %s', JSON.stringify(reason))
+  }
+
+  private initModalInfo(): void {
+    const modalInfo : ModalInfo = {
+      resultCallback: this._handleResult,
+      reasonCallback: this._handleReason
+    }
+    this._modalComp.modalInfo = modalInfo;
   }
 }

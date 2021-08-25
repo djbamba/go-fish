@@ -3,3 +3,6 @@
     width: 75px;
     margin: 2px;
 }
+td {
+    vertical-align: middle;
+}
