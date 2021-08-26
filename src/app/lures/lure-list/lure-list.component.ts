@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
 import { AddLureComponent } from '../add-lure/add-lure.component';
 import { EditLureComponent } from '../edit-lure/edit-lure.component';
+import { DeleteLureComponent } from '../delete-lure/delete-lure.component';
 
 @Component({
   selector: 'app-lure-list',
@@ -73,7 +74,13 @@ export class LureListComponent implements OnInit, OnDestroy {
     );
   }
 
-  public removeLure(lureID: string): void {
+  public invokeDeleteLureModal(lure: Lure): void {
+    this._modalComp.open(DeleteLureComponent);
+    this._modalComp.modalRef.componentInstance.lure = lure
+    this._modalComp.modalRef.componentInstance.deleteLureReq.subscribe((lureID:string)=> this._removeLure(lureID))
+  }
+
+  private _removeLure(lureID: string): void {
     this.lureService.deleteLure(lureID).subscribe(
       (res) => {
         console.debug('LureList.removeLure: %o', res);

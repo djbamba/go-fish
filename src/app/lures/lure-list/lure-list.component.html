@@ -27,17 +27,7 @@
             <td>
               <div class="btn-group-vertical">
                 <button type="button" class="btn btn-secondary col-12" (click)="invokeEditLureModal(lures[i])"><i class="fa fa-edit"></i></button>
-
-                <button type="button" class="btn btn-danger col-12 rounded-bottom" data-toggle="modal"
-                        attr.data-target="#deleteLureModal-{{i}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                <div class="modal fade" id="deleteLureModal-{{i}}" tabindex="-1" role="dialog"
-                     aria-labelledby="modelTitleId" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <app-delete-lure [lure]="lures[i]" (deleteLureReq)="removeLure($event)"></app-delete-lure>
-                    </div>
-                  </div>
-                </div>
+                <button type="button" class="btn btn-danger col-12 rounded-bottom" (click)="invokeDeleteLureModal(lures[i])"><i class="fa fa-trash" aria-hidden="true"></i></button>
               </div>
             </td>
           </tr>
