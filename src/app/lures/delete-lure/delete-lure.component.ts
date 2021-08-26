@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalInfo } from 'src/app/components/shared/modal/modal-info';
 import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
 import { Lure } from '../lure';
+import { LureType } from '../lure-type';
 
 @Component({
   selector: 'app-delete-lure',
@@ -23,6 +24,10 @@ export class DeleteLureComponent implements OnInit {
   deleteLure(): void {
     this.deleteLureReq.emit(this.lure.id);
     this._activeModal.close(`delete called: ${this.lure.id}`)
+  }
+
+  public lureTypeText(val : string) : string {
+    return Object.entries(LureType).filter(v => v[0] === val)[0][1]
   }
 
   private _initModalInfo() : void {

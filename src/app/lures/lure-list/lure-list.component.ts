@@ -75,7 +75,7 @@ export class LureListComponent implements OnInit, OnDestroy {
   }
 
   public invokeDeleteLureModal(lure: Lure): void {
-    this._modalComp.open(DeleteLureComponent);
+    this._modalComp.open(DeleteLureComponent, {size:'sm'});
     this._modalComp.modalRef.componentInstance.lure = lure
     this._modalComp.modalRef.componentInstance.deleteLureReq.subscribe((lureID:string)=> this._removeLure(lureID))
   }
