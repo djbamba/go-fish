@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-header text-center">
-        <button type="button" (click)="closeModal()">
-            <i class="fa fa-window-close-o" aria-hidden="true"></i>
+    <div class="text-right">
+        <button class="btn" (click)="closeModal()">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
         </button>
-        <h5>Edit Lure</h5>
     </div>
+    <h5 class="card-header text-center">Edit Lure</h5>
     <form #lureForm="ngForm">
         <div class="card-body">
             <div class="form-group row">
@@ -68,7 +68,7 @@
         <div class="card-footer">
             <div class="form-group row">
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid"
+                    <button ngbAutoFocus type="button" class="btn btn-primary" [disabled]="!lureForm.form.valid"
                             (click)="updateLureReq()">Update</button>
                 </div>
             </div>
