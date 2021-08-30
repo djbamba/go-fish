@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { ModalDismissReasons, NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalInfo } from './modal-info';
 
 @Component({
@@ -30,11 +30,22 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public open(content: any): void {
-    this._modalRef = this.modalService.open(content);
+  public open(content: any, options? : NgbModalOptions): void {
+    this._modalRef = this.modalService.open(content, options);
     this._modalRef.result.then(
       (result) => this._modalInfo.resultCallback?.(result),
-      (reason) => this._modalInfo.reasonCallback?.(reason)
+      (reason) => this._modalInfo.reasonCallback?.(this._dismissReason(reason))
     );
+  }
+
+  private _dismissReason(reason : any) : string {
+    switch (reason){
+      case ModalDismissReasons.ESC:
+        return 'ESC Dismiss'
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'Backdrop Dismiss'
+      default:
+        return `${reason}`
+    }
   }
 }

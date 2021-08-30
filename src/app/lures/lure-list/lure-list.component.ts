@@ -10,8 +10,9 @@ import { LureService } from '../../services/lure.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { ModalComponent } from 'src/app/components/shared/modal/modal.component';
-import { ModalInfo } from 'src/app/components/shared/modal/modal-info';
 import { AddLureComponent } from '../add-lure/add-lure.component';
+import { EditLureComponent } from '../edit-lure/edit-lure.component';
+import { DeleteLureComponent } from '../delete-lure/delete-lure.component';
 
 @Component({
   selector: 'app-lure-list',
@@ -21,7 +22,6 @@ import { AddLureComponent } from '../add-lure/add-lure.component';
 export class LureListComponent implements OnInit, OnDestroy {
   lures!: Lure[];
   private lureSub!: Subscription;
-  modalInfo! :ModalInfo;
 
   @Output()
   lureAction = new EventEmitter<Lure>();
@@ -56,7 +56,13 @@ export class LureListComponent implements OnInit, OnDestroy {
     );
   }
 
-  public updateLure(lure: Lure): void {
+  public invokeEditLureModal(lure : Lure) : void {
+    this._modalComp.open(EditLureComponent);
+    this._modalComp.modalRef.componentInstance.currLure = lure
+    this._modalComp.modalRef.componentInstance.editLureReq.subscribe((lure: Lure) => {this._updateLure(lure)});
+  }
+
+  private _updateLure(lure: Lure): void {
     this.lureService.updateLure(lure).subscribe(
       (res) => {
         let idx = this.lures.findIndex((x) => x.id === lure.id);
@@ -68,7 +74,13 @@ export class LureListComponent implements OnInit, OnDestroy {
     );
   }
 
-  public removeLure(lureID: string): void {
+  public invokeDeleteLureModal(lure: Lure): void {
+    this._modalComp.open(DeleteLureComponent, {size:'sm'});
+    this._modalComp.modalRef.componentInstance.lure = lure
+    this._modalComp.modalRef.componentInstance.deleteLureReq.subscribe((lureID:string)=> this._removeLure(lureID))
+  }
+
+  private _removeLure(lureID: string): void {
     this.lureService.deleteLure(lureID).subscribe(
       (res) => {
         console.debug('LureList.removeLure: %o', res);
