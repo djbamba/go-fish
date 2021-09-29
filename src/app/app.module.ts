@@ -14,9 +14,10 @@ import { EditLureComponent } from './lures/edit-lure/edit-lure.component';
 import { DeleteLureComponent } from './lures/delete-lure/delete-lure.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './components/shared/modal/modal.component';
+import { WeatherComponent } from './home/weather/weather.component';
 
 @NgModule({
-  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent, ModalComponent],
+  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent, ModalComponent, WeatherComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule],
   providers: [LureService, Title, ModalComponent, NgbActiveModal],
   bootstrap: [AppComponent],
