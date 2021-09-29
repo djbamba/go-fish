@@ -1,0 +1,42 @@
+<div *ngIf="currWeather" id="ws-comp">
+    <div class="card">
+        <div class="card-header text-center">Weather Forecast: <small><i
+                   class="text-muted">{{currWeather.cityName}}</i></small></div>
+        <img class="card-img-top" [src]="weatherInfo.iconRef()">
+        <div class="card-footer text-center">
+            <h5 class="card-title">{{weatherInfo.main}}</h5>
+            <small class="card-subtitle mb-3 text-muted">{{weatherInfo.description}}</small>
+        </div>
+    </div>
+
+    <div class="card">
+        <h6 class="card-text text-center">Temperature:</h6>
+        <ul class="list-group-flush list-group">
+            <li class="list-group-item">Feels Like: {{currWeather.main.feelsLike | number:'1.0-1'}}&deg;</li>
+            <li class="list-group-item">Current: {{currWeather.main.temp | number:'1.0-1'}}&deg;</li>
+            <li class="list-group-item">Low: {{currWeather.main.tempMin| number:'1.0-1'}}&deg;</li>
+            <li class="list-group-item">High: {{currWeather.main.tempMax| number:'1.0-1'}}&deg;</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h6 class="card-text text-center">Wind:</h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Current: NNW {{currWeather.wind.speed}} mph</li>
+            <li *ngIf="currWeather?.wind?.gust !== 0" class="list-group-item">Gusts: UP to {{currWeather.wind.gust}}
+                mph NNW</li>
+            <li *ngIf="currWeather?.visibility" class="list-group-item">Visibility: {{currWeather.visibility |
+                number:'1.0-2'}} mi</li>
+            <li *ngIf="currWeather?.clouds?.cloudiness !== 0" class="list-group-item">Cloudiness:
+                {{(currWeather.clouds.cloudiness/100) | percent:'1.0-1'}}</li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body"></div>
+    <div class="alert-success">
+        <pre>{{currWeather | json}}</pre>
+    </div>
+</div>

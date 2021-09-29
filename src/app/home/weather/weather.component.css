@@ -1,0 +1,3 @@
+#ws-comp li:focus, #ws-comp li:hover{
+    z-index: 0;
+}
