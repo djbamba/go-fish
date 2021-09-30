@@ -62,8 +62,6 @@ export class EditLureComponent implements OnInit {
   }
 
   private _resolveLureType(): void {
-    for (let types of Object.entries(LureType)) {
-      if (this.currLure.type === types[0]) this.currLure.type = types[1];
-    }
+    this.currLure.type = Object.entries(LureType).filter(v => v[0] === this.currLure.type)[0][1]
   }
 }
