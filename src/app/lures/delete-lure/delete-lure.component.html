@@ -36,12 +36,12 @@
                 {{lure.price | currency}}
             </div>
         </div>
-        <div *ngIf="lure.type" class="row mb-3 card-text">
+        <div *ngIf="lure?.type" class="row mb-3 card-text">
             <div class="col-3">
                 <label class='col-form-label'>Lure Type:</label>
             </div>
             <div class="col">
-                {{lureTypeText(lure.type)}}
+                {{lure.type}}
             </div>
         </div>
     </div>

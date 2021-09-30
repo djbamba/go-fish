@@ -11,30 +11,40 @@ import { LureType } from '../lure-type';
   styleUrls: ['./delete-lure.component.css'],
 })
 export class DeleteLureComponent implements OnInit {
-  lure!:Lure;
+  lure!: Lure;
   @Output()
   deleteLureReq = new EventEmitter<string>();
 
-  constructor(private _activeModal : NgbActiveModal, private _modalComp : ModalComponent){}
+  constructor(
+    private _activeModal: NgbActiveModal,
+    private _modalComp: ModalComponent
+  ) {}
 
   ngOnInit(): void {
-    this._initModalInfo()
+    this._initModalInfo();
+    this._resolveLureType();
   }
 
   deleteLure(): void {
     this.deleteLureReq.emit(this.lure.id);
-    this._activeModal.close(`delete called: ${this.lure.id}`)
+    this._activeModal.close(`delete called: ${this.lure.id}`);
   }
 
-  public lureTypeText(val : string) : string {
-    return Object.entries(LureType).filter(v => v[0] === val)[0][1]
-  }
-
-  private _initModalInfo() : void {
-    const modalInfo : ModalInfo = {
-      reasonCallback: (reason)=> console.debug('delete modal dismissed: ', reason),
-      resultCallback: (result) => console.debug('delete modal closed: ', result)
+  private _resolveLureType(): void {
+    for (let type of Object.entries(LureType)) {
+      if (type[0] === this.lure.type) {
+        this.lure.type = type[1];
+      }
     }
-    this._modalComp.modalInfo = modalInfo
+  }
+
+  private _initModalInfo(): void {
+    const modalInfo: ModalInfo = {
+      reasonCallback: (reason) =>
+        console.debug('delete modal dismissed: ', reason),
+      resultCallback: (result) =>
+        console.debug('delete modal closed: ', result),
+    };
+    this._modalComp.modalInfo = modalInfo;
   }
 }
