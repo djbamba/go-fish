@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Weather } from './weather';
 import { WeatherInfo } from './components/weatherinfo';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-weather',
@@ -9,35 +10,43 @@ import { WeatherInfo } from './components/weatherinfo';
   styleUrls: ['./weather.component.css'],
 })
 export class WeatherComponent implements OnInit {
-  private _defaultZip: string = '66441';
   @Input()
-  locationZip: string | undefined;
+  locationZip: string;
   currWeather!: Weather;
   weatherInfo!: WeatherInfo;
+  unit = 'F';
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private spinnerService: NgxSpinnerService
+  ) {
+    this.unit = 'F';
+    this.locationZip = '66441';
+  }
 
   ngOnInit(): void {
     this._initDefaults();
+    this.spinnerService.show();
+  }
+
+  public toggleUnit(): void {
+    this.unit === 'C' ? (this.unit = 'F') : (this.unit = 'C');
   }
 
   private _initDefaults(): void {
     if (!this.currWeather) {
-      this.weatherService
-        .getWeatherByZip(this.locationZip || this._defaultZip)
-        .subscribe(
-          (res) => {
-            this.currWeather = res;
-            this.currWeather.weather = res.weather.map((wi) =>
-              Object.assign(new WeatherInfo(),
-                // new WeatherInfo(wi.id, wi.main, wi.description, wi.icon),
-                wi
-              )
-            );
-            this.weatherInfo = this.currWeather.weather[0];
-          },
-          (err) => console.error(err)
-        );
+      this.weatherService.getWeatherByZip(this.locationZip).subscribe(
+        (res) => {
+          console.debug(res);
+          this.currWeather = res;
+          this.currWeather.weather = res.weather.map((wi) =>
+            Object.assign(new WeatherInfo(), wi)
+          );
+          this.weatherInfo = this.currWeather.weather[0];
+          this.spinnerService.hide();
+        },
+        (err) => console.error(err)
+      );
     }
   }
 }
