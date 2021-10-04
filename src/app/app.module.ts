@@ -16,10 +16,13 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './components/shared/modal/modal.component';
 import { WeatherComponent } from './home/weather/weather.component';
 import { TempUnitPipe } from './pipes/temp-unit.pipe';
+import { CompassDirectionPipe } from './pipes/compass-direction.pipe';
+import {NgxSpinnerModule} from 'ngx-spinner'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
-  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent, ModalComponent, WeatherComponent, TempUnitPipe],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule],
+  declarations: [AppComponent, LureListComponent, HomeComponent, NavComponent, LureComponent, AddLureComponent, EditLureComponent, DeleteLureComponent, ModalComponent, WeatherComponent, TempUnitPipe, CompassDirectionPipe],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule, NgxSpinnerModule, BrowserAnimationsModule],
   providers: [LureService, Title, ModalComponent, NgbActiveModal],
   bootstrap: [AppComponent],
 })
