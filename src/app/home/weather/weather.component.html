@@ -1,121 +1,113 @@
 <div id="ws-comp" class="w-75">
-    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" [fullScreen]="false" type="ball-spin" ></ngx-spinner>
-        <div class="card">
-            <div class="card-header text-center">Weather Forecast: <small><i
-                       class="text-muted">{{currWeather.cityName}}</i></small>
-            </div>
-            <div id="w-icon">
-                <img class="card-img-top img-thumbnail" [src]="weatherInfo.iconRef()">
-            </div>
-            <div class="card-footer text-center">
-                <h5 class="card-title">{{weatherInfo.main}}</h5>
-                <small class="card-subtitle mb-3 text-muted">{{weatherInfo.description}}</small>
-            </div>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" [fullScreen]="false" type="ball-spin">
+    </ngx-spinner>
+    <div class="card">
+        <div class="card-header text-center">Weather Forecast: <small><i
+                   class="text-muted">{{currWeather.cityName}}</i></small>
         </div>
-    
-        <div id="w-temp-info" class="card">
-            <h6 class="card-header text-center">Temperature:
-                <button type="button" class="btn btn-lg align-items-end bg-white rounded-circle shadow-sm ml-sm-5"
-                        aria-hidden="true" (click)="toggleUnit()" data-toggle="tooltip" data-placement="top"
-                        title="F°/C°"><i class="fa fa-thermometer-quarter" aria-hidden="true"></i></button>
-            </h6>
-            <ul class="list-group-flush list-group">
-                <li class="list-group-item">
-                    <div class="row mx-sm-0 mx-auto">
-                        <div class="col-sm-6 col text-end">
-                            Feels Like:
-                        </div>
-                        <div class="col-sm-6 col text-start">
-                            {{currWeather.main.feelsLike | tempUnit: unit}}
-                        </div>
-                    </div>
-    
-                </li>
-                <li class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Current:
-                        </div>
-                        <div class="col text-start">
-                            {{currWeather.main.temp | tempUnit: unit}}
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Low:
-                        </div>
-                        <div class="col text-start">
-                            {{currWeather.main.tempMin| tempUnit: unit}}
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            High:
-                        </div>
-                        <div class="col text-start">
-                            {{currWeather.main.tempMax| tempUnit: unit}}
-                        </div>
-                    </div>
-                </li>
-            </ul>
+        <div id="w-icon">
+            <img class="card-img-top img-thumbnail" [src]="weatherInfo.iconRef()">
         </div>
-    
-        <div class="card">
-            <h6 class="card-text text-center">Wind:</h6>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Current:
-                        </div>
-                        <div class="col text-start">
-                            {{currWeather.wind.degrees|compassDirection}} {{currWeather.wind.speed}} mph
-                        </div>
-                    </div>
-                </li>
-                <li *ngIf="currWeather?.wind?.gust" class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Gusts:
-                        </div>
-                        <div class="col text-start">
-                            UP to {{currWeather.wind.gust}} mph {{currWeather.wind.degrees|compassDirection}}
-                        </div>
-                    </div>
-                </li>
-                <li *ngIf="currWeather?.visibility" class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Visibility:
-                        </div>
-                        <div class="col text-start">
-                            {{currWeather.visibility | number:'1.0-2'}} mi
-                        </div>
-                    </div>
-                </li>
-                <li *ngIf="currWeather?.clouds?.cloudiness !== 0" class="list-group-item">
-                    <div class="row mx-auto">
-                        <div class="col text-end">
-                            Cloudiness:
-                        </div>
-                        <div class="col text-start">
-                            {{(currWeather.clouds.cloudiness/100) | percent:'1.0-1'}}
-                        </div>
-                    </div>
-                </li>
-            </ul>
+        <div class="card-footer text-center">
+            <h5 class="card-title">{{weatherInfo.main}}</h5>
+            <small class="card-subtitle mb-3 text-muted">{{weatherInfo.description}}</small>
         </div>
-    
-</div>
+    </div>
 
+    <div id="w-temp-info" class="card">
+        <h6 class="card-header text-center">Temperature:
+            <button type="button" class="btn btn-lg align-items-end bg-white rounded-circle shadow-sm ml-sm-5"
+                    aria-hidden="true" (click)="toggleUnit()" data-toggle="tooltip" data-placement="top"
+                    title="F°/C°"><i class="fa fa-thermometer-quarter" aria-hidden="true"></i></button>
+        </h6>
+        <ul class="list-group-flush list-group">
+            <li class="list-group-item">
+                <div class="row mx-sm-0 mx-auto">
+                    <div class="col-sm-6 col text-end">
+                        Feels Like:
+                    </div>
+                    <div class="col-sm-6 col text-start">
+                        {{currWeather.main.feelsLike | tempUnit: unit}}
+                    </div>
+                </div>
 
-<div class="card">
-    <div class="card-body"></div>
-    <div class="alert-success">
-        <pre>{{currWeather | json}}</pre>
+            </li>
+            <li class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Current:
+                    </div>
+                    <div class="col text-start">
+                        {{currWeather.main.temp | tempUnit: unit}}
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Low:
+                    </div>
+                    <div class="col text-start">
+                        {{currWeather.main.tempMin| tempUnit: unit}}
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        High:
+                    </div>
+                    <div class="col text-start">
+                        {{currWeather.main.tempMax| tempUnit: unit}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h6 class="card-text text-center">Wind:</h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Current:
+                    </div>
+                    <div class="col text-start">
+                        {{currWeather.wind.degrees|compassDirection}} {{currWeather.wind.speed}} mph
+                    </div>
+                </div>
+            </li>
+            <li *ngIf="currWeather?.wind?.gust" class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Gusts:
+                    </div>
+                    <div class="col text-start">
+                        UP to {{currWeather.wind.gust}} mph {{currWeather.wind.degrees|compassDirection}}
+                    </div>
+                </div>
+            </li>
+            <li *ngIf="currWeather?.visibility" class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Visibility:
+                    </div>
+                    <div class="col text-start">
+                        {{currWeather.visibility | number:'1.0-2'}} mi
+                    </div>
+                </div>
+            </li>
+            <li *ngIf="currWeather?.clouds?.cloudiness !== 0" class="list-group-item">
+                <div class="row mx-auto">
+                    <div class="col text-end">
+                        Cloudiness:
+                    </div>
+                    <div class="col text-start">
+                        {{(currWeather.clouds.cloudiness/100) | percent:'1.0-1'}}
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
