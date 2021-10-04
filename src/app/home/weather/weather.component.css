@@ -1,3 +1,12 @@
 #ws-comp li:focus, #ws-comp li:hover{
     z-index: 0;
 }
+
+#w-icon img {
+    background-color: #e0e0e0;
+}
+
+#w-temp-info button:hover {
+    z-index: 5;
+    background-color:rgb(175, 191, 219) !important;
+}
